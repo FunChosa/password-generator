@@ -102,8 +102,21 @@ function PasswordGenerator() {
             </div>
           </div>
         </div>
+        <div className="password-length">
+          <div className="slider">
+            <p className="rangeValue">{passwordLength}</p>
+            <div className="range">
+              <input
+                type="range"
+                min={8}
+                max={40}
+                defaultValue={passwordLength}
+                onChange={(e) => setPasswordLength(e.currentTarget.value)}
+              />
+            </div>
+          </div>
+        </div>
         <div className="setting">
-          <h3>Customize your password</h3>
           <div className="customize">
             <div className="checkboxes">
               <div className="left">
@@ -122,7 +135,7 @@ function PasswordGenerator() {
                       handleCheckbox("lowercase");
                     }}
                   />
-                  <label htmlFor="lower">Include LowerCase(a-z)</label>
+                  <label htmlFor="lower">LowerCase(a-z)</label>
                 </div>
                 <div className="checkbox-field">
                   <input
@@ -139,7 +152,7 @@ function PasswordGenerator() {
                       handleCheckbox("uppercase");
                     }}
                   />
-                  <label htmlFor="upper">Include UpperCase(A-Z)</label>
+                  <label htmlFor="upper">UpperCase(A-Z)</label>
                 </div>
               </div>
               <div className="right">
@@ -158,7 +171,7 @@ function PasswordGenerator() {
                       handleCheckbox("numbers");
                     }}
                   />
-                  <label htmlFor="numbers">Include Numbers(0-9)</label>
+                  <label htmlFor="numbers">Numbers(0-9)</label>
                 </div>
                 <div className="checkbox-field">
                   <input
@@ -175,31 +188,13 @@ function PasswordGenerator() {
                       handleCheckbox("symbols");
                     }}
                   />
-                  <label htmlFor="symbols">Include Symbols(&-#)</label>
+                  <label htmlFor="symbols">Symbols(&-#)</label>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="password-length">
-          <h3>Password Length</h3>
-          <div className="slider">
-            <p className="rangeValue">{passwordLength}</p>
-            <div className="range">
-              <input
-                type="range"
-                min={8}
-                max={40}
-                defaultValue={passwordLength}
-                onChange={(e) => setPasswordLength(e.currentTarget.value)}
-              />
-            </div>
-          </div>
-        </div>
         <div className="buttons">
-          <button type="button" onClick={copyPassword}>
-            Copy Password
-          </button>
           <button type="button" onClick={generatePassword}>
             Generate Password
           </button>

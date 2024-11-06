@@ -40,44 +40,63 @@ function PasswordGenerator() {
   const generatePassword = () => {
     let charactersList = "";
 
-    if (lowerCase) {
-      charactersList += lowercaseList;
-    }
-    if (upperCase) {
-      charactersList += uppercaseList;
-    }
-    if (numbers) {
-      charactersList += numbersList;
-    }
-    if (symbols) {
-      charactersList += symbolsList;
-    }
+    if (lowerCase) charactersList += lowercaseList;
+    if (upperCase) charactersList += uppercaseList;
+    if (numbers) charactersList += numbersList;
+    if (symbols) charactersList += symbolsList;
 
-    let tempPassword = "";
+    let tempPassword = [];
     const characterListLength = charactersList.length;
+    const choiceMap = {
+      lowercase: lowercaseList,
+      uppercase: uppercaseList,
+      numbers: numbersList,
+      symbols: symbolsList,
+    };
 
-    for (let i = 0; i < passwordLength; i++) {
-      const characterIndex = Math.round(Math.random() * characterListLength);
-      tempPassword += charactersList.charAt(characterIndex);
+    selectedChoices.forEach((choice) => {
+      const list = choiceMap[choice];
+      const randomIndex = Math.floor(Math.random() * list.length);
+      tempPassword.push(list.charAt(randomIndex));
+    });
+
+    for (let i = 0; i < passwordLength - selectedChoices.length; i++) {
+      const characterIndex = Math.floor(Math.random() * characterListLength);
+      tempPassword.push(charactersList.charAt(characterIndex));
     }
-    setPassword(tempPassword);
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    tempPassword = shuffle(tempPassword);
+
+    setPassword(tempPassword.join(""));
+    console.log(tempPassword.length);
   };
 
-  const copyPassword = async () => {
-    const copiedText = await navigator.clipboard.readText();
-    if (password.length && copiedText !== password) {
-      navigator.clipboard.writeText(password);
-      toast.success("Password copied!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-    }
+  const copyPassword = () => {
+    const textArea = document.createElement("textarea");
+    textArea.value = password;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    textArea.remove();
+
+    toast.success("Password copied!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   };
 
   return (

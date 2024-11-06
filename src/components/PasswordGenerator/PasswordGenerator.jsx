@@ -76,7 +76,6 @@ function PasswordGenerator() {
     tempPassword = shuffle(tempPassword);
 
     setPassword(tempPassword.join(""));
-    console.log(tempPassword.length);
   };
 
   const copyPassword = () => {

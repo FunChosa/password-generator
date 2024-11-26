@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./PasswordGenerator.css";
-import copyIcon from "../../assets/copy-icon.svg";
+import copyIcon from "../assets/copy-icon.svg";
 import { ToastContainer, toast } from "react-toastify";
 
 const lowercaseList = "abcdefghijklmnopqrstuvwxyz";
